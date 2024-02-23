@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "gongmingqm10";
     private static final String CALL_ACTION = "android.SIPSample.INCOMING_CALL";
     public static final String STATE_CONNECTED = "Connected";
-    public static final String STATE_CONNECTED_FAILURE = "Register failed, try to refresh";
+    public static final String STATE_CONNECTED_FAILURE = "Register failed ";
     public static final String STATE_CONNECTING = "Connecting...";
     public static final String STATE_CALLING = "Calling...";
     private SipAudioCall.Listener audioCallListener = new SipAudioCall.Listener() {
@@ -76,6 +76,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        callBtn = (Button)findViewById(R.id.callBtn);
+        callEndBtn = (Button)findViewById(R.id.callEnd);
+        callNumber = (EditText) findViewById(R.id.callNumber);
+
         ButterKnife.inject(this);
         initSip();
         initComp();
@@ -192,7 +196,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 @Override
                 public void onRegistrationFailed(String localProfileUri, int errorCode, String errorMessage) {
-                    updateStatus(STATE_CONNECTED_FAILURE);
+                    updateStatus(STATE_CONNECTED_FAILURE + "\n" + errorCode + errorMessage );
+                    Log.i(TAG, STATE_CONNECTED_FAILURE + "\n" + errorCode + errorMessage);
                 }
             });
         } catch (SipException e) {

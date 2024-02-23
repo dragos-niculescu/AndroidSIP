@@ -32,7 +32,13 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.login);
+        loginBtn = (Button)findViewById(R.id.loginBtn);
+        userNameEdit = (EditText)findViewById(R.id.userName);
+        passwordEdit = (EditText)findViewById(R.id.password);
+        domainEdit = (EditText)findViewById(R.id.domain);
+
         ButterKnife.inject(this);
         if (SipApplication.getInstance().getAccount() != null) {
             startMainActivity();
